@@ -40,18 +40,18 @@ cd $HOME/geth-linux-amd64-1.10.23-d901d853/
 
 sleep 5
 
-sed -i '/UTC/d' $HOME/.bash_profile
-sed -i '/PKEY/d' $HOME/.bash_profile
-sed -i '/KEY/d' $HOME/.bash_profile
-sed -i '/NULINK_KEYSTORE_PASSWORD/d' $HOME/.bash_profile
-sed -i '/NULINK_OPERATOR_ETH_PASSWORD/d' $HOME/.bash_profile
+sed -i '/UTC/d' g/home/vps212/.bash_profile
+sed -i '/PKEY/d' g/home/vps212/.bash_profile
+sed -i '/KEY/d' g/home/vps212/.bash_profile
+sed -i '/NULINK_KEYSTORE_PASSWORD/d' g/home/vps212/.bash_profile
+sed -i '/NULINK_OPERATOR_ETH_PASSWORD/d' g/home/vps212/.bash_profile
 
 UTC="$(ls /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/)"
-echo "export UTC="$UTC >> $HOME/.bash_profile
+echo "export UTC="$UTC >> g/home/vps212/.bash_profile
 PKEY="0x""$(awk -F \" '{print $4}' /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/$UTC)"
-echo "export PKEY="$PKEY >> $HOME/.bash_profile
+echo "export PKEY="$PKEY >> g/home/vps212/.bash_profile
 KEY="/home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/"$UTC
-echo "export KEY="$KEY >> $HOME/.bash_profile
+echo "export KEY="$KEY >> g/home/vps212/.bash_profile
 
 sleep 2
 
@@ -60,15 +60,15 @@ unset NULINK_OPERATOR_ETH_PASSWORD
 
 if [ ! $NULINK_KEYSTORE_PASSWORD ]; then
 	read -p "create a password for NULINK_KEYSTORE_PASSWORD: " NULINK_KEYSTORE_PASSWORD
-	echo 'export NULINK_KEYSTORE_PASSWORD='$NULINK_KEYSTORE_PASSWORD >> $HOME/.bash_profile
+	echo 'export NULINK_KEYSTORE_PASSWORD='$NULINK_KEYSTORE_PASSWORD >> g/home/vps212/.bash_profile
 fi
 
 if [ ! $NULINK_OPERATOR_ETH_PASSWORD ]; then
 	read -p "create a password for NULINK_OPERATOR_ETH_PASSWORD: " NULINK_OPERATOR_ETH_PASSWORD
-	echo 'export NULINK_OPERATOR_ETH_PASSWORD='$NULINK_OPERATOR_ETH_PASSWORD >> $HOME/.bash_profile
+	echo 'export NULINK_OPERATOR_ETH_PASSWORD='$NULINK_OPERATOR_ETH_PASSWORD >> g/home/vps212/.bash_profile
 fi
 
-source $HOME/.bash_profile
+source g/home/vps212/.bash_profile
 
 echo -e "Your public address: \e[1m\e[32m$PKEY\e[0m"
 echo -e "Your path to secret key file: \e[1m\e[32m$KEY\e[0m"
@@ -135,11 +135,7 @@ nulink/nulink nulink ursula run --no-block-until-ready
 
 sleep 3
 
-source $HOME/.bash_profile
+source g/home/vps212/.bash_profile
 
 echo '----The Installation was Completed Successfully. Good luck... ----'
 echo '---- If you have any questions, you can contact me. Discord id: bobo... ----'
-
-
-
-
