@@ -21,21 +21,21 @@ sudo apt-get -y install libssl-dev && apt-get -y install cmake build-essential g
 echo -e "\e[1m\e[32m2. Creating a Worker Account... \e[0m" && sleep 2
 # Account Creation
 
-if [ -f geth-linux-amd64-1.10.24-972007a5 ]; then
-	rm -rf geth-linux-amd64-1.10.24-972007a5.tar.gz
-	rm -rf geth-linux-amd64-1.10.24-972007a5
+if [ -f geth-linux-amd64-1.10.23-d901d853 ]; then
+	rm -rf geth-linux-amd64-1.10.23-d901d853.tar.gz
+	rm -rf geth-linux-amd64-1.10.23-d901d853
 fi
 
-wget "https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.24-972007a5.tar.gz"
-tar -xvzf geth-linux-amd64-1.10.24-972007a5.tar.gz
+wget "https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.23-d901d853.tar.gz"
+tar -xvzf geth-linux-amd64-1.10.23-d901d853.tar.gz
 
-if [ "$(ls /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/ | wc -l)" > 1 ]; then
-	rm -rf /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore
-	mkdir /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore
+if [ "$(ls /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/ | wc -l)" > 1 ]; then
+	rm -rf /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore
+	mkdir /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore
 fi
 
 
-cd $HOME/geth-linux-amd64-1.10.24-972007a5/
+cd $HOME/geth-linux-amd64-1.10.23-d901d853/
 ./geth account new --keystore ./keystore
 
 sleep 5
@@ -46,11 +46,11 @@ sed -i '/KEY/d' $HOME/.bash_profile
 sed -i '/NULINK_KEYSTORE_PASSWORD/d' $HOME/.bash_profile
 sed -i '/NULINK_OPERATOR_ETH_PASSWORD/d' $HOME/.bash_profile
 
-UTC="$(ls /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/)"
+UTC="$(ls /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/)"
 echo "export UTC="$UTC >> $HOME/.bash_profile
-PKEY="0x""$(awk -F \" '{print $4}' /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/$UTC)"
+PKEY="0x""$(awk -F \" '{print $4}' /home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/$UTC)"
 echo "export PKEY="$PKEY >> $HOME/.bash_profile
-KEY="/home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/"$UTC
+KEY="/home/vps212/geth-linux-amd64-1.10.23-d901d853/keystore/"$UTC
 echo "export KEY="$KEY >> $HOME/.bash_profile
 
 sleep 2
@@ -138,7 +138,7 @@ sleep 3
 source $HOME/.bash_profile
 
 echo '----The Installation was Completed Successfully. Good luck... ----'
-echo '---- If you have any questions, you can contact me. Discord id: blackowl#7099... ----'
+echo '---- If you have any questions, you can contact me. Discord id: bobo... ----'
 
 
 
