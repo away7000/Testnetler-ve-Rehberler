@@ -29,9 +29,9 @@ fi
 wget "https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.24-972007a5.tar.gz"
 tar -xvzf geth-linux-amd64-1.10.24-972007a5.tar.gz
 
-if [ "$(ls /root/geth-linux-amd64-1.10.24-972007a5/keystore/ | wc -l)" > 1 ]; then
-	rm -rf /root/geth-linux-amd64-1.10.24-972007a5/keystore
-	mkdir /root/geth-linux-amd64-1.10.24-972007a5/keystore
+if [ "$(ls /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/ | wc -l)" > 1 ]; then
+	rm -rf /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore
+	mkdir /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore
 fi
 
 
@@ -46,11 +46,11 @@ sed -i '/KEY/d' $HOME/.bash_profile
 sed -i '/NULINK_KEYSTORE_PASSWORD/d' $HOME/.bash_profile
 sed -i '/NULINK_OPERATOR_ETH_PASSWORD/d' $HOME/.bash_profile
 
-UTC="$(ls /root/geth-linux-amd64-1.10.24-972007a5/keystore/)"
+UTC="$(ls /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/)"
 echo "export UTC="$UTC >> $HOME/.bash_profile
-PKEY="0x""$(awk -F \" '{print $4}' /root/geth-linux-amd64-1.10.24-972007a5/keystore/$UTC)"
+PKEY="0x""$(awk -F \" '{print $4}' /home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/$UTC)"
 echo "export PKEY="$PKEY >> $HOME/.bash_profile
-KEY="/root/geth-linux-amd64-1.10.24-972007a5/keystore/"$UTC
+KEY="/home/vps212/geth-linux-amd64-1.10.24-972007a5/keystore/"$UTC
 echo "export KEY="$KEY >> $HOME/.bash_profile
 
 sleep 2
@@ -100,8 +100,8 @@ mkdir nulink
 sleep 2
 
 # Adding a secret keye
-cp $KEY /root/nulink
-chmod -R 777 /root/nulink
+cp $KEY /home/vps212/nulink
+chmod -R 777 /home/vps212/nulink
 
 sleep 3
 
@@ -109,8 +109,8 @@ echo -e "\e[1m\e[32m4. Initializing Node Configuration... \e[0m" && sleep 2
 # Initialize Node Configuration
 docker run -it --rm \
 -p 9151:9151 \
--v /root/nulink:/code \
--v /root/nulink:/home/circleci/.local/share/nulink \
+-v /home/vps212/nulink:/code \
+-v /home/vps212/nulink:/home/circleci/.local/share/nulink \
 -e NULINK_KEYSTORE_PASSWORD \
 nulink/nulink nulink ursula init \
 --signer keystore:///code/$UTC \
@@ -127,8 +127,8 @@ sleep 5
 docker run --restart on-failure -d \
 --name ursula \
 -p 9151:9151 \
--v /root/nulink:/code \
--v /root/nulink:/home/circleci/.local/share/nulink \
+-v /home/vps212/nulink:/code \
+-v /home/vps212/nulink:/home/circleci/.local/share/nulink \
 -e NULINK_KEYSTORE_PASSWORD \
 -e NULINK_OPERATOR_ETH_PASSWORD \
 nulink/nulink nulink ursula run --no-block-until-ready
